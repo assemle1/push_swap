@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/18 22:28:42 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:54:09 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct p_stack
 }	            p_stack;
 
 int check(char *av);
+void	freealloc(char **ptr, int index);
 char	*ft_strjoin(int size, char **strs, char *sep);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char	*str);
@@ -45,8 +46,6 @@ void		ft_lstadd_front(p_stack **lst, p_stack *new);
 int			ft_lstsize(p_stack *lst);
 p_stack		*ft_lstlast(p_stack *lst);
 void		ft_lstadd_back(p_stack **lst, p_stack *new);
-void	ft_lstdelone(p_stack **lst);
-void		ft_lstclear(p_stack **lst, void (*del)(void*));
 void		ft_lstiter(p_stack *lst, void (*f)(void *));
 p_stack		*ft_lstmap(p_stack *lst, void *(*f)(void *), void (*del)(void *));
 int check_double(data *info);
@@ -59,5 +58,7 @@ void    rotate(p_stack **a, char index);
 void    rr(p_stack  **a, p_stack **b);
 void    reverse_rotate(p_stack  **a, char index);
 void    rrr(p_stack **a, p_stack **b);
+int     ft_lstsize(p_stack *lst);
+void    ft_lstclear(p_stack **lst);
 
 #endif

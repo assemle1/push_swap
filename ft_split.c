@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 13:32:19 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/15 16:30:16 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:53:55 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	to_allocate(const char *s, char c)
 	return (i);
 }
 
-static void	freealloc(char **ptr, int index)
+void	freealloc(char **ptr, int index)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 12:03:24 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/18 22:28:09 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:45:54 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ void	swap(p_stack *leftnode, p_stack *rightnode, char stack)
         ft_putstr_fd("sa\n",1);
     else if (stack == 'b')
         ft_putstr_fd("sb\n",1);
-    else
-        return ;
 }
 
 void    ss(p_stack *a, p_stack *b)
@@ -125,19 +123,20 @@ void    push_a(p_stack **a, p_stack **b)
     if (!*b)
         return ;
     tmp = (*b)->next;
-    ft_lstadd_front(a,*b);
+    ft_lstadd_front(a,ft_lstnew((*b)->content));
     free(*b);
     *b = tmp;
     ft_putstr_fd("pa\n",1);
 }
+
 void    push_b(p_stack **b, p_stack **a)
 {
-    p_stack *tmp;
+       p_stack *tmp;
 
     if (!*a)
         return ;
     tmp = (*a)->next;
-    ft_lstadd_front(b,*a);
+    ft_lstadd_front(b,ft_lstnew((*a)->content));
     free(*a);
     *a = tmp;
     ft_putstr_fd("pb\n",1);
@@ -189,6 +188,8 @@ void    reverse_rotate(p_stack  **a, char index)
         ft_putstr_fd("rra\n",1);
     else if (index == 'b')
         ft_putstr_fd("rrb\n",1);
+    else
+        return ;
 }
 
 void    rrr(p_stack **a, p_stack **b)
