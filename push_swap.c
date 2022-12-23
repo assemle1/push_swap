@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/19 21:39:36 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/23 13:51:22 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int sorted(p_stack **a)
 {
 	p_stack *head;
 	head = *a;
-	while (head)
+	while (head->next)
     {
 		if (head->content > head->next->content)
 		    return (0);
@@ -60,30 +60,68 @@ int sorted(p_stack **a)
 	}
 	return (1);
 }
+int		get_max(p_stack **a)
+{
+	p_stack *tmp;
+	int max;
+	max = 0;
+	int index;
+	tmp = *a;
+	while (tmp)
+	{
+		if (tmp->content > max)
+		{
+			max = tmp->content;
+			index = tmp->index;
+		}
+		tmp = tmp->next;
+	}
+	return index;
+}
+void ft_index(p_stack **a)
+{
+	p_stack *tmp;
+	int i;
+	i = 0;
+	tmp = *a;
+	while (*a)
+	{
+		(*a)->index= i;
+		i++;
+		*a = (*a)->next;
+	}
+	*a = tmp;
+}
 void	sort_3(p_stack **a)
 {
-	p_stack *head;
-    head = *a;
-	while (!sorted(&head))
-	{
-		if(head->content > head->next->content && head->content > ft_lstlast(head)->content)
+		int	max;
+		
+		max = get_max(a);
+		if ((*a)->next->next->content > (*a)->next->content && (*a)->content < (*a)->next->content)
+			return ;
+		if (max == 2)
 			swap(*a,(*a)->next,'a');
-		else if(head->content > head->next->content && head->next->content > ft_lstlast(head)->content)
-		    {
+		else if (max == 0)
+			{
+				rotate(a,'a');
+				if ((*a)->content > (*a)->next->content)
 				swap(*a,(*a)->next,'a');
-				reverse_rotate(a,'a');
 			}
-		else if(head->content > head->next->content && head->next->content < ft_lstlast(head)->content)
-                rotate(a,'a');
-		else if (head->content < head->next->content && head->next->content > ft_lstlast(head)->content)
-		{
-			swap(*a,(*a)->next,'a');
-			rotate(a,'a');
-		}
 		else
-		    reverse_rotate(a,'a');
-	
+		{
+				reverse_rotate(a,'a');
+			if ((*a)->content > (*a)->next->content)
+				swap(*a,(*a)->next,'a');
+		}	
 }
+void 	sort_5(p_stack **a, p_stack **b)
+{
+	while (!sorted(a))
+	{
+		sort_3(a);
+		sort_3(&((*a)->next->next));
+	}
+	
 }
 // void	sort(p_stack **a, p_stack **b, data info)
 // {
@@ -112,7 +150,11 @@ int	main(int ac, char *av[])
 	if (issorted(&info))
 		return (0);
 	 link_args(&stack_a,info);
-	 sort_3(&stack_a);
+	 ft_index(&stack_a);
+	 //rotate(&stack_a,'a');
+	//  sort_3(&stack_a);
+	 sort_5(&stack_a,&stack_b);
+	// printf("%d\n",get_max(&stack_a));
 	// stack_b = ft_lstnew(10);
 	// stack_b->next = ft_lstnew(11);
 	// stack_b->next->next = ft_lstnew(12);
@@ -137,12 +179,13 @@ int	main(int ac, char *av[])
 	// 	stack_b = stack_b->next;
 		
 	// }
-	// exit(1);
-	//  ft_lstclear(&stack_a);
-	// ft_lstclear(&stack_b);
-	// freealloc(info.args,0);
-    //  free(info.arr);
-	// free(info.args);
+// 	// xit(1);
+// 	 ft_lstclear(&stack_a);
+// 	ft_lstclear(&stack_b);
+// 	freealloc(info.args,0);
+//  free(info.arr);
+// 	free(info.args);
 	// // printf("\n stackb -> %d\n",stack_b->next->next->content);
 
-}
+
+}	

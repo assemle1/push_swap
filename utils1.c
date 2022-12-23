@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 12:03:24 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/19 16:45:54 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/23 04:57:46 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int check(char *av)
     i = 0;
     while (av[i])
     {
-        if (av[i] == 32)
+        if (av[i] == 32 || av[i] == '-' || av[i] == '+')
             i++;
         else if(!ft_isdigit(av[i]))
             return 0;
