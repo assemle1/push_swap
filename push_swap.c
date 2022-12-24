@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/23 13:51:22 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/24 22:07:21 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,28 @@ int sorted(p_stack **a)
 	}
 	return (1);
 }
-int		get_max(p_stack **a)
+int		get_min_value(p_stack *a)
+{
+	p_stack *tmp;
+	int min;
+	min = a->content;
+
+	tmp = a;
+	while (tmp)
+	{
+		if (tmp->content < min)
+			min = tmp->content;
+		tmp = tmp->next;
+	}
+	return min;
+}
+int		get_max(p_stack *a)
 {
 	p_stack *tmp;
 	int max;
 	max = 0;
 	int index;
-	tmp = *a;
+	tmp = a;
 	while (tmp)
 	{
 		if (tmp->content > max)
@@ -92,11 +107,14 @@ void ft_index(p_stack **a)
 	}
 	*a = tmp;
 }
+
 void	sort_3(p_stack **a)
 {
 		int	max;
+		while (!sorted(a))
+		{
 		
-		max = get_max(a);
+		max = get_max(*a);
 		if ((*a)->next->next->content > (*a)->next->content && (*a)->content < (*a)->next->content)
 			return ;
 		if (max == 2)
@@ -113,30 +131,51 @@ void	sort_3(p_stack **a)
 			if ((*a)->content > (*a)->next->content)
 				swap(*a,(*a)->next,'a');
 		}	
+		}
 }
-void 	sort_5(p_stack **a, p_stack **b)
+
+void 	sort_small(p_stack **a, p_stack **b, data info)
 {
-	while (!sorted(a))
+	int j ;
+	int i;
+	i = 0;
+	j = 0;
+
+	if (info.nbelem == 2)
 	{
-		sort_3(a);
-		sort_3(&((*a)->next->next));
+		if(get_min_value(*a) != (*a)->content)
+			swap((*a),(*a)->next,'a');
+		return ;
 	}
+	while(j < info.nbelem - 3)
+	{
+		i  = get_min_value(*a);
+		if (i < info.nbelem/2)
+		{
+			while (i != (*a)->content)
+				rotate(a,'a');
+		}
+		else
+			while (i != (*a)->content)
+				reverse_rotate(a,'a');
+		push_b(b,a);
+		j++;	
+	}
+	 sort_3(a);
+	while (*b)
+		push_a(a,b);
+}
+sort_big()
+{
 	
 }
-// void	sort(p_stack **a, p_stack **b, data info)
-// {
-// 	if (info.nbelem < 5)
-        
-// }
 int	main(int ac, char *av[])
 {
 	char *params;
-	char **splparam;
 	p_stack *stack_a = NULL;
-	p_stack *stack_b = NULL;
+	 p_stack *stack_b = NULL;
 	data	info;
-
-	int	i;
+	
 	params = ft_strjoin(ac,av," ");
 	info.args = ft_split(params, ' ');
 	info.nbelem = count(info.args);
@@ -151,41 +190,11 @@ int	main(int ac, char *av[])
 		return (0);
 	 link_args(&stack_a,info);
 	 ft_index(&stack_a);
-	 //rotate(&stack_a,'a');
-	//  sort_3(&stack_a);
-	 sort_5(&stack_a,&stack_b);
-	// printf("%d\n",get_max(&stack_a));
-	// stack_b = ft_lstnew(10);
-	// stack_b->next = ft_lstnew(11);
-	// stack_b->next->next = ft_lstnew(12);
-	// stack_b->next->next->next = ft_lstnew(13);
-	// rrr(&stack_a,&stack_b);
-	
+	  sort_small(&stack_a,&stack_b,info);
+	 printf("sorted : %d\n",sorted(&stack_a));
 	while (stack_a)
 	{
 		printf(" %d ",stack_a->content);
 		stack_a = stack_a->next;
 	}
-	
-		
-	// push_b(&stack_b,&stack_a);
-	// 	printf("\nstack b -> %d ",stack_b->content);
-
-	// printf("\n");
-
-	// while (stack_b)
-	// {
-	// 	  printf("stack b -> %d ",stack_b->content);
-	// 	stack_b = stack_b->next;
-		
-	// }
-// 	// xit(1);
-// 	 ft_lstclear(&stack_a);
-// 	ft_lstclear(&stack_b);
-// 	freealloc(info.args,0);
-//  free(info.arr);
-// 	free(info.args);
-	// // printf("\n stackb -> %d\n",stack_b->next->next->content);
-
-
 }	
