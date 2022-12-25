@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/24 22:07:21 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/25 15:48:52 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,33 @@ void make_arr(data *info)
 		info->arr[i] = ft_atoi(info->args[i]);
 		i++;
 	}
+	
+}
+
+void sort_array(long *arr, data info )
+{
+    int i;
+    int j;
+    long tmp;
+
+    i = 0;
+   j = 0;
+    while (i < info.nbelem)
+    {
+        j = i + 1;
+        while (j < info.nbelem)
+        {
+            if (arr[j] < arr[i])
+            {
+                tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+            j++;
+        }
+        i++;
+    }
+
 }
 int	count(char *str[])
 {
