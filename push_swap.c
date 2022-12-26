@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/25 15:48:52 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/26 19:54:35 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,18 @@ int		get_max(p_stack *a)
 	}
 	return index;
 }
-void ft_index(p_stack **a)
+void ft_index(p_stack **a, data info)
 {
 	p_stack *tmp;
 	int i;
 	i = 0;
+	sort_array(info.arr,info);
 	tmp = *a;
 	while (*a)
 	{
-		(*a)->index= i;
-		i++;
-		*a = (*a)->next;
+			(*a)->index= i;
+				i++;
+			*a = (*a)->next;
 	}
 	*a = tmp;
 }
@@ -140,7 +141,6 @@ void	sort_3(p_stack **a)
 		int	max;
 		while (!sorted(a))
 		{
-		
 		max = get_max(*a);
 		if ((*a)->next->next->content > (*a)->next->content && (*a)->content < (*a)->next->content)
 			return ;
@@ -192,9 +192,21 @@ void 	sort_small(p_stack **a, p_stack **b, data info)
 	while (*b)
 		push_a(a,b);
 }
-sort_big()
+sort_big(p_stack **a, p_stack **b,data info)
 {
+	int middle;
+	int offset;
+
+	offset = 
+	middle = info.nbelem / 2;
+	while (srted(a))
+	{
+		
+	}
 	
+	
+	
+		
 }
 int	main(int ac, char *av[])
 {
@@ -216,7 +228,7 @@ int	main(int ac, char *av[])
 	if (issorted(&info))
 		return (0);
 	 link_args(&stack_a,info);
-	 ft_index(&stack_a);
+	 ft_index(&stack_a,info); 
 	  sort_small(&stack_a,&stack_b,info);
 	 printf("sorted : %d\n",sorted(&stack_a));
 	while (stack_a)
