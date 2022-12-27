@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:04:14 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/19 16:57:48 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/27 19:09:51 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ p_stack	*ft_lstnew(int content)
 	new = (p_stack *) malloc (sizeof (new));
 	if (!new)
 		return (NULL);
+	new->len = 0;
 	new->content = content;
 	new->next = NULL;
 	return (new);
