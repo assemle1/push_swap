@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/28 16:51:42 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:48:00 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,23 +264,41 @@ void	set_pnp(p_stack **a)
 	p_stack *tmp;
 	int max;
 	int save;
+	int last;
 	tmp = *a;
+	save = 0;
 	max = get_max_len(tmp);
+	printf("max --> %d\n",max);
 	while (tmp)
 	{
 		if (tmp->len == max)
 		{
 			save = tmp->content;
+			tmp->pnp = 1;
+			if (tmp->next)
+				tmp = tmp->next;
+			else 
+				tmp = *a;
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	while (tmp && tmp->content != save)
+	// printf("save --> %d\n",tmp->content);
+	last = save;
+	while (tmp->content != save)
 	{
-		if (!tmp->next)
-			tmp = *a;
-		else if (tmp->content > save)
-		tmp = tmp->next;
+		
+		 if (tmp->content > last)
+			{
+				last = tmp->content;
+				tmp->pnp = 1;
+				if (!tmp->next)
+					tmp = *a;
+				else 
+					tmp = tmp->next;
+			}
+		else
+			tmp = tmp->next;
 	}
 	
 	
@@ -353,11 +371,12 @@ int	main(int ac, char *av[])
 	 stack_b = ft_lstnew(5);
 	//  callen(4,info);
   set_len(&stack_a,&info);
+  set_pnp(&stack_a);
 	//   sort_big(&stack_a,&stack_b,info);
 	// stack_b = stack_a;
 	while (stack_a)
 	{
-		printf(" %d ",stack_a->index);
+		printf(" %d ",stack_a->pnp);
 		stack_a = stack_a->next;
 	}
 	// stack_a = stack_b;

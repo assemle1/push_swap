@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 18:04:14 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/28 14:51:25 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/28 21:37:04 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ p_stack	*ft_lstnew(int content)
 		return (NULL);
 	new->len = 0;
 	new->index = 0;
+	new->pnp = 0;
 	new->content = content;
 	new->next = NULL;
 	return (new);
