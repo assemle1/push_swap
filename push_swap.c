@@ -6,13 +6,13 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/27 22:13:15 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/28 16:51:42 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	link_args(p_stack **list, data	info)
+p_stack	*link_args(data	*info)
 {
 	p_stack *head;
 	p_stack *new;
@@ -20,13 +20,15 @@ void	link_args(p_stack **list, data	info)
 
 	i = 0;
 	head = NULL;
-	while (i < info.nbelem)
+	while (i < info->nbelem)
 	{
-		new = ft_lstnew(info.arr[i]);
+		new = ft_lstnew(info->arr[i]);
+		if (new == NULL)
+			return NULL; // TODO: free head before return
 		ft_lstadd_back(&head,new);
 		i++;
 	}
-	 *list = head;
+	return head;
 }
 
 void make_arr(data *info)
@@ -120,19 +122,18 @@ int		get_max(p_stack *a)
 	}
 	return index;
 }
-void ft_index(p_stack **a)
+void ft_index(p_stack *a)
 {
 	p_stack *tmp;
 	int i;
 	i = 0;
-	tmp = *a;
-	while (*a)
+	tmp = a;
+	while (a)
 	{
-			(*a)->index= i;
-				i++;
-			*a = (*a)->next;
+			a->index= i++;
+			a = a->next;
 	}
-	*a = tmp;
+	a = tmp;
 }
 
 void	sort_3(p_stack **a)
@@ -208,7 +209,7 @@ void 	sort_small(p_stack **a, p_stack **b, data info)
 // 	}
 // 	*a = tmp;
 // }
-int	callen(int n, data info)
+int	callen(int n, data *info)
 {
 	int len;
 	int i;
@@ -218,59 +219,84 @@ int	callen(int n, data info)
 	
 		len = 1;
 		last = n;
-		while (i < info.nbelem)
+		while (i < info->nbelem)
 		{
-			if (info.arr[i] == n)
+			if (info->arr[i] == n)
 				break ;
 			i++;
 		}
 			j = i + 1;
-			if (j == info.nbelem)
+			if (j == info->nbelem)
 				j = 0;
-		while (info.arr[j] != n)
+		while (info->arr[j] != n)
 		{
-			if (info.arr[j] > last)
+			if (info->arr[j] > last)
 			{
-				last = info.arr[j];
+				last = info->arr[j];
 				len++;
 				j++;
-				if (j  == info.nbelem)
+				if (j  == info->nbelem)
 					j = 0;
 			}
 			else
 			{
 			 j++;
-			 if (j  == info.nbelem)
+			 if (j  == info->nbelem)
 					j = 0;
 			}
 		}
-		
-		//  printf("len --> %d\n",len);
 	return len;
 }
-
-void set_len(p_stack **a, data info)
+int		get_max_len(p_stack *a)
+{
+	int max;
+	max = 1;
+	while (a)
+	{
+		if (a->len > max)
+			max = a->len;
+		a = a->next;
+	}
+	return (max);
+}
+void	set_pnp(p_stack **a)
 {
 	p_stack *tmp;
-	int n;
+	int max;
+	int save;
+	tmp = *a;
+	max = get_max_len(tmp);
+	while (tmp)
+	{
+		if (tmp->len == max)
+		{
+			save = tmp->content;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+	while (tmp && tmp->content != save)
+	{
+		if (!tmp->next)
+			tmp = *a;
+		else if (tmp->content > save)
+		tmp = tmp->next;
+	}
+	
+	
+}
+void set_len(p_stack **a, data *info)
+{
+	p_stack *tmp;
+
 	 tmp = *a;
-	// 	while (*a)
-	// {
-	// 	puts("here");
-	// 	printf(" %d ",(*a)->content);
-	// 	(*a) = (*a)->next;
-	// }
 	while (tmp)
 	{
 		if ((tmp)->len != 0)
 			(tmp)->len = 0;
-		(tmp)->len = callen((tmp)->content, info);
-		// printf("n --> [%d]\n",(tmp)->len);
-			puts("start");
+		(tmp)->len = callen((tmp)->content,info);
 		(tmp) = (tmp)->next;
-		puts("end");
 	}
-	puts("here");
 }
 // void sort_big(p_stack **a, p_stack **b, data info)
 // {
@@ -305,8 +331,8 @@ void set_len(p_stack **a, data info)
 int	main(int ac, char *av[])
 {
 	char *params;
-	p_stack *stack_a = NULL;
-	 p_stack *stack_b = NULL;
+	p_stack *stack_a;
+	p_stack *stack_b = NULL;
 	data	info;
 	
 	params = ft_strjoin(ac,av," ");
@@ -321,19 +347,19 @@ int	main(int ac, char *av[])
 	}
 	if (issorted(&info))
 		return (0);
-	 link_args(&stack_a,info);
-	 stack_b = ft_lstnew(5);
-	 ft_index(&stack_a); 
+	 stack_a = link_args(&info);
+	 ft_index(stack_a); 
 	 printf("sorted : %d\n",sorted(&stack_a));
+	 stack_b = ft_lstnew(5);
 	//  callen(4,info);
-	  set_len(&stack_a,info);
+  set_len(&stack_a,&info);
 	//   sort_big(&stack_a,&stack_b,info);
 	// stack_b = stack_a;
-	// while (stack_a)
-	// {
-	// 	printf(" %d ",stack_a->content);
-	// 	stack_a = stack_a->next;
-	// }
+	while (stack_a)
+	{
+		printf(" %d ",stack_a->index);
+		stack_a = stack_a->next;
+	}
 	// stack_a = stack_b;
 	// while (stack_a)
 	// {

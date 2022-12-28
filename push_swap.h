@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/27 21:56:10 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/28 16:35:32 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ typedef struct mydata
     int    nbelem;
 }               data;
 
-typedef struct p_stack
+typedef struct s_stack
 {
-	struct p_stack	*next;
+	struct s_stack	*next;
 	int			    content;
-    int             index;
     int             len;
+    int             index;
+    int              pnp;
 }	            p_stack;
 
 int check(char *av);
