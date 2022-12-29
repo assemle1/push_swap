@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/29 20:36:29 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/29 23:36:52 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,8 +381,6 @@ void	set_hops(p_stack *a,p_stack *b)
 			mov = b->index + 1;
 		else
 			mov =  size - b->index + 1;
-		printf("movb -> %d\n",mov);
-		printf("bc -> %d\n",b->content);
 		mov = mov + movsa(a,b->content);
 		b->movs = mov;
 		b = b->next;
@@ -412,6 +410,7 @@ int		get_less_movs(p_stack *b)
 			index = b->index;
 		b = b->next;
 	}
+	printf("bm --> %d\n",movs);
 	return index;
 }
 void	set_a(p_stack **a, int minmax)
@@ -439,11 +438,40 @@ void	set_a(p_stack **a, int minmax)
 			}
 		}	 	
 }
+void	do_action(p_stack **a, char acc, char stat, int times)
+{
+	int i;
+	i = 0;
+	while (i < times)
+	{
+		if (acc == 'r' && stat == 'b')
+			rotate(a,'a');
+		else if (acc == 's' && stat == 'b')
+			reverse_rotate(a,'a');
+		i++;
+	}
+}
+void	set_b(p_stack **a, p_stack **b, int midb)
+{
+	int  less;
+	int size;
+	size = ft_lstsize(*b);
+	less = get_less_movs(*b);
+	printf("less -> %d \n",less);
+	set_a(a,minmax(*a,(*b)->content));
+	printf("a --> %d\n",(*a)->content);
+	if (less <= midb)
+		do_action(b,'r','b',less);
+	else
+		do_action(b,'s','b',size - less);
+	push_a(a,b);
+}
 void sort_big(p_stack **a, p_stack **b, data *info)
 {
 	p_stack *tmp;
 	int max;
 	int midb;
+
 	tmp = *a;
 	int i;
 	set_len(a,info);
@@ -461,6 +489,15 @@ void sort_big(p_stack **a, p_stack **b, data *info)
 	ft_index(*b);
 	midb = (ft_lstsize(*b) - 1) / 2;
 	set_hops(*a,*b);
+	while (*b)
+	{
+		ft_index(*a);
+		ft_index(*b);
+		midb = (ft_lstsize(*b) - 1) / 2;
+		set_b(a,b,midb);
+	}
+	
+	
 }
 // sort_big(p_stack **a, p_stack **b,data info)
 // {
@@ -507,16 +544,16 @@ int	main(int ac, char *av[])
 	// printf("%d\n",minmax(stack_a,24));
 	//   sort_big(&stack_a,&stack_b,info);
 	// stack_b = stack_a;
-	// while (stack_a)
-	// {
-	// 	printf(" %d ",stack_a->content);
-	// 	stack_a = stack_a->next;
-	// }
+	while (stack_a)
+	{
+		printf(" %d ",stack_a->content);
+		stack_a = stack_a->next;
+	}
 	// // // stack_a = stack_b;
 	// // printf("\nsize of b -> %d\n",ft_lstsize(stack_b));
 	while (stack_b)
 	{
-		printf(" [%d] ",stack_b->movs);
+		printf(" [%d] ",stack_b->content);
 		stack_b = stack_b->next;
 	}
 }	
