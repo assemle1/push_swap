@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/28 16:35:32 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/29 19:07:20 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_stack
     int             len;
     int             index;
     int              pnp;
+    int              movs;
 }	            p_stack;
 
 int check(char *av);

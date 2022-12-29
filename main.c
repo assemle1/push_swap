@@ -1,29 +1,48 @@
 #include "push_swap.h"
-
-void	calc_len(p_stack **a,int n ,int len)
+int		get_min_value(p_stack *a)
 {
 	p_stack *tmp;
-	tmp = *a;
-	while(*a)
+	int min;
+	min = a->content;
+
+	tmp = a;
+	while (tmp)
 	{
-		if ((*a)->content == n)
-        {
-			(*a)->len = len;
-            *a = tmp;
-            return ;
-        }
-		(*a) = (*a)->next;
+		if (tmp->content < min)
+			min = tmp->content;
+		tmp = tmp->next;
 	}
-	*a = tmp;
+	return min;
+}
+int		calmovsa(p_stack *a, int n)
+{
+	int last;
+	
+	last = get_min_value(a);
+    while (a)
+    {
+        if (a->content > n)
+        {
+            last = a->content;
+            while (a)
+	            {
+		            if(a->content > n && a->content < last)
+			        last = a->content;
+		                a = a->next;
+	            }
+            break;
+        }
+        a = a->next;
+    }
+	return last;	
 }
 int main()
 {
     p_stack *head;
-    head = ft_lstnew(5);
-    head->next = ft_lstnew(8);
-    head->next->next = ft_lstnew(6);
-    head->next->next->next = ft_lstnew(4);
+    head = ft_lstnew(429);
+    head->next = ft_lstnew(441);
+    head->next->next = ft_lstnew(2);
+    head->next->next->next = ft_lstnew(3);
     puts("ok");
-    calc_len(&head,6,4);
-    printf("len --> %d\n", head->next->next->len);
+    printf("len --> %d\n", calmovsa(head,1));
 }

@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/28 21:48:00 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/29 20:36:29 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,16 +259,16 @@ int		get_max_len(p_stack *a)
 	}
 	return (max);
 }
-void	set_pnp(p_stack **a)
+void	set_pnp(p_stack *a)
 {
 	p_stack *tmp;
 	int max;
 	int save;
 	int last;
-	tmp = *a;
+	tmp = a;
 	save = 0;
 	max = get_max_len(tmp);
-	printf("max --> %d\n",max);
+
 	while (tmp)
 	{
 		if (tmp->len == max)
@@ -278,12 +278,12 @@ void	set_pnp(p_stack **a)
 			if (tmp->next)
 				tmp = tmp->next;
 			else 
-				tmp = *a;
+				tmp = a;
 			break ;
 		}
 		tmp = tmp->next;
 	}
-	// printf("save --> %d\n",tmp->content);
+
 	last = save;
 	while (tmp->content != save)
 	{
@@ -293,15 +293,100 @@ void	set_pnp(p_stack **a)
 				last = tmp->content;
 				tmp->pnp = 1;
 				if (!tmp->next)
-					tmp = *a;
+					tmp = a;
 				else 
 					tmp = tmp->next;
 			}
 		else
-			tmp = tmp->next;
+		{
+			if(!tmp->next)
+				tmp = a;
+			else	
+				tmp = tmp->next;
+		}
 	}
-	
-	
+}
+int		minmax(p_stack *a, int n)
+{
+	int last;
+	int mida;
+	int index;
+	// int size = ft_lstsize(a);
+	index = 0;
+	mida = (ft_lstsize(a) - 1) / 2;
+    while (a)
+    {
+        if (a->content > n)
+        {
+            last = a->content;
+			index = a->content;
+            while (a)
+	            {
+		            if(a->content > n && a->content < last)
+					{
+			        	last = a->content;
+						index = a->index;
+					}
+		                a = a->next;
+	            }
+            break;
+        }
+        a = a->next;
+    }
+	return (index);
+}
+int		movsa(p_stack *a, int n)
+{
+	int last;
+	int index = 0;;
+	int mida;
+	int movs = 0;
+	int size = ft_lstsize(a);
+	mida = (ft_lstsize(a) - 1) / 2;
+    while (a)
+    {
+        if (a->content > n)
+        {
+            last = a->content;
+			index = a->index;
+            while (a)
+	            {
+		            if(a->content > n && a->content < last)
+					{
+			        	last = a->content;
+						index = a->index;
+					}
+		                a = a->next;
+	            }
+            break;
+        }
+        a = a->next;
+    }
+	if (index <= mida)
+		movs = index;
+	else
+		movs =  size - index;
+	return (movs);
+}
+void	set_hops(p_stack *a,p_stack *b)
+{
+	int midb;
+	int mov;
+	int size;
+	size = ft_lstsize(b);
+	midb = (ft_lstsize(b) - 1) / 2;
+	while (b)
+	{
+		if (b->index <= midb)
+			mov = b->index + 1;
+		else
+			mov =  size - b->index + 1;
+		printf("movb -> %d\n",mov);
+		printf("bc -> %d\n",b->content);
+		mov = mov + movsa(a,b->content);
+		b->movs = mov;
+		b = b->next;
+	}
 }
 void set_len(p_stack **a, data *info)
 {
@@ -316,20 +401,67 @@ void set_len(p_stack **a, data *info)
 		(tmp) = (tmp)->next;
 	}
 }
-// void sort_big(p_stack **a, p_stack **b, data info)
-// {
-// 	int i;
-// 	int j;
-// 	int last;
-// 	p_stack *tmp;
-// 	tmp = *a;
-// 	i = 0;
-// 	j = 0;
-// 	last = 0;
-// 	int len = 0;
-// 	(*b)->next = ft_lstnew(5);
-	
-// }
+int		get_less_movs(p_stack *b)
+{
+	int index;
+	int movs;
+	movs = b->movs;
+	while (b)
+	{
+		if (movs < b->movs)
+			index = b->index;
+		b = b->next;
+	}
+	return index;
+}
+void	set_a(p_stack **a, int minmax)
+{
+	int size;
+	int mida;
+	int i;
+	i = 0;
+	size = ft_lstsize(*a);
+	mida = (size - 1) / 2;
+		if (minmax <= mida)
+		{
+			while (i < minmax)
+			{
+				rotate(a,'a');
+				i++;
+			}
+		}
+		else
+		{
+			while (i < size - minmax)
+			{
+				reverse_rotate(a,'a');
+				i++;
+			}
+		}	 	
+}
+void sort_big(p_stack **a, p_stack **b, data *info)
+{
+	p_stack *tmp;
+	int max;
+	int midb;
+	tmp = *a;
+	int i;
+	set_len(a,info);
+	set_pnp(*a);
+	i = 0;
+	max = get_max_len(*a);
+	while (ft_lstsize(*a) > max)
+	{
+		if ((*a)->pnp == 0)
+			push_b(b,a);
+		else
+			reverse_rotate(a,'a');
+	}
+	ft_index(*a);
+	ft_index(*b);
+	midb = (ft_lstsize(*b) - 1) / 2;
+	set_hops(*a,*b);
+}
 // sort_big(p_stack **a, p_stack **b,data info)
 // {
 // 	int middle;
@@ -350,7 +482,7 @@ int	main(int ac, char *av[])
 {
 	char *params;
 	p_stack *stack_a;
-	p_stack *stack_b = NULL;
+	 p_stack *stack_b = NULL;
 	data	info;
 	
 	params = ft_strjoin(ac,av," ");
@@ -367,22 +499,24 @@ int	main(int ac, char *av[])
 		return (0);
 	 stack_a = link_args(&info);
 	 ft_index(stack_a); 
+	sort_big(&stack_a,&stack_b,&info);
 	 printf("sorted : %d\n",sorted(&stack_a));
-	 stack_b = ft_lstnew(5);
 	//  callen(4,info);
-  set_len(&stack_a,&info);
-  set_pnp(&stack_a);
+	//    sort_big(&stack_a,&stack_b,&info);
+	//  set_hops(stack_a,stack_b);
+	// printf("%d\n",minmax(stack_a,24));
 	//   sort_big(&stack_a,&stack_b,info);
 	// stack_b = stack_a;
-	while (stack_a)
-	{
-		printf(" %d ",stack_a->pnp);
-		stack_a = stack_a->next;
-	}
-	// stack_a = stack_b;
 	// while (stack_a)
 	// {
-	// 	printf(" %d ",stack_a->len);
+	// 	printf(" %d ",stack_a->content);
 	// 	stack_a = stack_a->next;
 	// }
+	// // // stack_a = stack_b;
+	// // printf("\nsize of b -> %d\n",ft_lstsize(stack_b));
+	while (stack_b)
+	{
+		printf(" [%d] ",stack_b->movs);
+		stack_b = stack_b->next;
+	}
 }	
