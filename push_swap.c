@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/29 23:36:52 by astalha          ###   ########.fr       */
+/*   Updated: 2022/12/31 22:29:48 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,7 +319,7 @@ int		minmax(p_stack *a, int n)
         if (a->content > n)
         {
             last = a->content;
-			index = a->content;
+			index = a->index;
             while (a)
 	            {
 		            if(a->content > n && a->content < last)
@@ -403,14 +403,18 @@ int		get_less_movs(p_stack *b)
 {
 	int index;
 	int movs;
+	index = 0;
 	movs = b->movs;
+
 	while (b)
 	{
-		if (movs < b->movs)
+		if (movs > b->movs)
+		{
+			movs = b->movs;
 			index = b->index;
+		}
 		b = b->next;
 	}
-	printf("bm --> %d\n",movs);
 	return index;
 }
 void	set_a(p_stack **a, int minmax)
@@ -448,8 +452,20 @@ void	do_action(p_stack **a, char acc, char stat, int times)
 			rotate(a,'a');
 		else if (acc == 's' && stat == 'b')
 			reverse_rotate(a,'a');
+		else
+			return ;
 		i++;
 	}
+}
+int 	getlessvalue(p_stack *b,int less)
+{
+	while (b)
+	{
+		if (b->index == less)
+			return (b->content);
+		b = b->next;
+	}
+	return 0;
 }
 void	set_b(p_stack **a, p_stack **b, int midb)
 {
@@ -457,9 +473,12 @@ void	set_b(p_stack **a, p_stack **b, int midb)
 	int size;
 	size = ft_lstsize(*b);
 	less = get_less_movs(*b);
-	printf("less -> %d \n",less);
-	set_a(a,minmax(*a,(*b)->content));
-	printf("a --> %d\n",(*a)->content);
+	set_a(a,minmax(*a,getlessvalue(*b,less)));
+	if (!less)
+	{
+		push_a(a,b);
+		return ;
+	}
 	if (less <= midb)
 		do_action(b,'r','b',less);
 	else
@@ -485,16 +504,17 @@ void sort_big(p_stack **a, p_stack **b, data *info)
 		else
 			reverse_rotate(a,'a');
 	}
-	ft_index(*a);
-	ft_index(*b);
-	midb = (ft_lstsize(*b) - 1) / 2;
-	set_hops(*a,*b);
 	while (*b)
 	{
 		ft_index(*a);
-		ft_index(*b);
-		midb = (ft_lstsize(*b) - 1) / 2;
-		set_b(a,b,midb);
+	ft_index(*b);
+	midb = (ft_lstsize(*b) - 1) / 2;
+	set_hops(*a,*b);
+	 set_b(a,b,midb);
+	}
+	while ((*a)->content != get_min_value(*a))
+	{
+		reverse_rotate(a,'a');
 	}
 	
 	
@@ -536,8 +556,10 @@ int	main(int ac, char *av[])
 		return (0);
 	 stack_a = link_args(&info);
 	 ft_index(stack_a); 
-	sort_big(&stack_a,&stack_b,&info);
+	 sort_big(&stack_a,&stack_b,&info);
 	 printf("sorted : %d\n",sorted(&stack_a));
+	//  set_a(&stack_a,6);
+	//  printf(" 5 %d \n",get_less_movs(stack_b));
 	//  callen(4,info);
 	//    sort_big(&stack_a,&stack_b,&info);
 	//  set_hops(stack_a,stack_b);
