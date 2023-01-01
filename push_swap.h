@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/29 19:07:20 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/01 21:04:18 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-typedef struct mydata
+
+typedef struct s_actions
+{
+    int     action;
+    struct s_actions *next;
+}           t_actions;
+
+typedef struct s_data
 {
     char **args;
     int *arr;
     int    nbelem;
-}               data;
+}               t_data;
 
 typedef struct s_stack
 {
@@ -31,37 +38,60 @@ typedef struct s_stack
     int             index;
     int              pnp;
     int              movs;
-}	            p_stack;
+}	            t_stack;
 
-int check(char *av);
-void	freealloc(char **ptr, int index);
-char	*ft_strjoin(int size, char **strs, char *sep);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char	*str);
-int	ft_isdigit(int arg);
-void	ft_putstr_fd(char *s, int fd);
+t_stack	*ft_lstlast(t_stack *lst);
+t_stack	*ft_lstnew(int content);
+t_stack	*link_args(t_data	*info);
 char	**ft_split(char const *s, char c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(int size, char **strs, char *sep);
 char	*ft_strdup(const char *src);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+int	ft_isdigit(int arg);
 int	ft_atoi(const char *str);
-p_stack		*ft_lstnew(int content);
-void		ft_lstadd_front(p_stack **lst, p_stack *new);
-int			ft_lstsize(p_stack *lst);
-p_stack		*ft_lstlast(p_stack *lst);
-void		ft_lstadd_back(p_stack **lst, p_stack *new);
-void		ft_lstiter(p_stack *lst, void (*f)(void *));
-p_stack		*ft_lstmap(p_stack *lst, void *(*f)(void *), void (*del)(void *));
-int check_double(data *info);
-int issorted(data *info);
-void	swap(p_stack *leftnode, p_stack *rightnode, char stack);
-void    ss(p_stack *a, p_stack *b);
-void    push_b(p_stack **b, p_stack **a);
-void    push_a(p_stack **a, p_stack **b);
-void    rotate(p_stack **a, char index);
-void    rr(p_stack  **a, p_stack **b);
-void    reverse_rotate(p_stack  **a, char index);
-void    rrr(p_stack **a, p_stack **b);
-int     ft_lstsize(p_stack *lst);
-void    ft_lstclear(p_stack **lst);
+int     ft_lstsize(t_stack *lst);
+int check(char *av);
+int check_double(t_data *info);
+int issorted(t_data *info);
+int	count(char *str[]);
+int sorted(t_stack **a);
+int		get_min_value(t_stack *a);
+int		get_min_index(t_stack *a);
+int		get_max(t_stack *a);
+int	callen(int n, t_data *info);
+int		get_max_len(t_stack *a);
+int		minmax(t_stack *a, int n);
+int		movsa(t_stack *a, int n);
+int		get_less_movs(t_stack *b);
+int 	getlessvalue(t_stack *b,int less);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_lstadd_back(t_stack **lst, t_stack *new);
+void	ft_lstadd_front(t_stack **lst, t_stack *new);
+void    ft_lstclear(t_stack **lst);
+void	swap(t_stack *leftnode, t_stack *rightnode, char stack);
+void    ss(t_stack *a, t_stack *b);
+void    push_a(t_stack **a, t_stack **b);
+void    push_b(t_stack **b, t_stack **a);
+void    rotate(t_stack **a, char index);
+void    rr(t_stack  **a, t_stack **b);
+void    reverse_rotate(t_stack  **a, char index);
+void    rrr(t_stack **a, t_stack **b);
+void make_arr(t_data *info);
+void sort_array(int *arr, t_data info );
+void ft_index(t_stack *a);
+void	sort_3(t_stack **a);
+void 	sort_small(t_stack **a, t_stack **b, t_data info);
+void	set_pnp(t_stack *a);
+void	set_hops(t_stack *a,t_stack *b);
+void set_len(t_stack **a, t_data *info);
+void	set_a(t_stack **a, int minmax);
+void	do_action(t_stack **b, char acc, int times);
+void	set_b(t_stack **a, t_stack **b, int midb);
+void sort_big(t_stack **a, t_stack **b, t_data *info);
+void	push_back(t_stack **a, t_stack **b);
+void 	setlast(t_stack *a,int *last, int *index);
 
 #endif

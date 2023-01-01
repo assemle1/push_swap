@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   libft2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/19 23:34:59 by astalha           #+#    #+#             */
-/*   Updated: 2022/12/15 16:35:30 by astalha          ###   ########.fr       */
+/*   Created: 2023/01/01 16:38:12 by astalha           #+#    #+#             */
+/*   Updated: 2023/01/01 16:40:21 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+size_t	ft_strlen(const char	*str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -33,4 +43,31 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	ptr[i] = 0;
 	return (ptr);
+}
+
+int	ft_atoi(const char *str)
+{
+	size_t	i;
+	size_t	n;
+	size_t	signe;
+
+	i = 0;
+	n = 0;
+	signe = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+		{
+			signe *= -1;
+		}
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + str[i] - 48;
+		i++;
+	}
+	return ((int)n * signe);
 }

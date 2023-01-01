@@ -1,0 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/01 16:40:51 by astalha           #+#    #+#             */
+/*   Updated: 2023/01/01 16:47:15 by astalha          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+int check(char *av)
+{
+    int i;
+
+    i = 0;
+    while (av[i])
+    {
+        if (av[i] == 32 || av[i] == '-' || av[i] == '+')
+            i++;
+        else if(!ft_isdigit(av[i]))
+            return 0;
+        i++;
+    }
+    return i;
+}
+
+int check_double(t_data *info)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < info->nbelem)
+    {
+        j = 0;
+        while (j < info->nbelem)
+        {
+             if(i != j && info->arr[i] == info->arr[j])
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (i);
+}
+ 
+int issorted(t_data *info)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < info->nbelem)
+    {
+        j = i + 1;
+        while (j < info->nbelem)
+        {
+             if(info->arr[i] > info->arr[j])
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (i);
+}

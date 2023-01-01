@@ -6,11 +6,11 @@
 #    By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 23:42:01 by astalha           #+#    #+#              #
-#    Updated: 2022/12/28 14:38:41 by astalha          ###   ########.fr        #
+#    Updated: 2023/01/01 17:06:01 by astalha          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS			=	ft_isdigit.c ft_putstr_fd.c ft_split.c ft_strdup.c ft_strjoin.c ft_strlcpy.c ft_strlen.c ft_substr.c linkedlist.c push_swap.c utils1.c
+SRCS			=	check.c ft_split.c ft_strjoin.c libft1.c libft2.c linkedlist.c push_swap.c rules1.c rules2.c utils1.c utils2.c utils3.c utils4.c utils5.c
 	
 OBJS			= $(SRCS:.c=.o)
 CC				= gcc
