@@ -19,13 +19,20 @@ int check(char *av)
     i = 0;
     while (av[i])
     {
-        if (av[i] == 32 || av[i] == '-' || av[i] == '+')
+        if (av[i] == 32)
             i++;
-        else if(!ft_isdigit(av[i]))
+        else if (av[i] == '-' | av[i] == '+')
+            {
+                i++;
+                if (!ft_isdigit(av[i]))
+                    return 0;
+            }
+        else if (!ft_isdigit(av[i]))
             return 0;
-        i++;
+        else
+            i++;
     }
-    return i;
+    return 1;
 }
 
 int check_double(t_data *info)

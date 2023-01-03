@@ -40,8 +40,7 @@ int	main(int ac, char *av[])
 		sort_small(&stack_a,&stack_b,info);
 	else
 	 	sort_big(&stack_a,&stack_b,&info);
-	 printf("sorted : %d\n",sorted(&stack_a));
-	//  free(info.arr);
-	 while (1);
-	 
+	//  printf("sorted : %d\n",sorted(&stack_a));
+	  free(info.arr);
+	//  while (1);
 }	
