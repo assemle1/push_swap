@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:55:35 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 22:11:08 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 22:40:03 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_stack	*link_args(t_data	*info)
 	head = NULL;
 	while (i < info->nbelem)
 	{
+		printf("[%d]\n",info->arr[i]);
 		new = ft_lstnew(info->arr[i]);
 		if (new == NULL)
 			return (NULL);

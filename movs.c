@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:49:02 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/05 18:49:14 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 21:21:26 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,21 @@ void	bmovs(t_stack **b, int less, int midb,int size_b)
 		do_action(b,4,size_b - less);
 }
 
-void	do_movs(t_stack **a, t_stack **b, int less, int size_b, int midb, int minmax)
+void	do_movs(t_stack **a, t_stack **b, int less, int minmax)
 {
 	int size_a;
 	int mida;
-	int i;
-	i = 0;
+	int size_b;
+	int midb;
+
 	size_a = ft_lstsize(*a);
+	size_b = ft_lstsize(*b);
 	mida = (size_a - 1) / 2;
+	midb = (size_b - 1) / 2;
 	if (less <= midb && minmax <= mida)
 		do_rr(a, b, less, minmax);
 	else if (less > midb && minmax > mida)
-		do_rrr(a, b, less, minmax, size_a, size_b);
+		do_rrr(a, b, less, minmax);
 	else
 	{
 		amovs(a,minmax,mida,size_a);

@@ -6,38 +6,39 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:40:51 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 16:47:15 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 22:33:45 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int check(char *av)
+int	check(char *av)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (av[i])
-    {
-        if (av[i] == 32)
-            i++;
-        else if (av[i] == '-' | av[i] == '+')
-            {
-                i++;
-                if (!ft_isdigit(av[i]))
-                    return 0;
-            }
-        else if (!ft_isdigit(av[i]))
-            return 0;
-        else
-            i++;
-    }
-    return 1;
+	i = 0;
+    printf("[%s]\n",av);
+	while (av[i])
+	{
+		if (av[i] == 32)
+			i++;
+		else if (av[i] == '-' || av[i] == '+')
+		{
+			i++;
+			if (!ft_isdigit(av[i]))
+				return (0);
+		}
+		else if (!ft_isdigit(av[i]))
+			return (0);
+		else
+			i++;
+	}
+	return (1);
 }
 
 int check_double(t_data *info)
 {
-    int i;
+    int	i;
     int j;
 
     i = 0;

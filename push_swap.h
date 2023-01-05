@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/05 20:08:16 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 21:22:05 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_stack
 
 void	do_double(t_stack **a, t_stack **b, int acc, int times);
 void	do_rr(t_stack **a, t_stack **b, int less, int minmax);
-void	do_rrr(t_stack **a, t_stack **b, int less, int minmax, int size_a, int size_b);
+void	do_rrr(t_stack **a, t_stack **b, int less, int minmax);
 void	do_action(t_stack **b, int acc, int times);
 void	a_set(t_stack **a, int minmax);
 int check(char *av);
@@ -72,7 +72,7 @@ int		movsa(t_stack *a, int n);
 void	set_hops(t_stack *a,t_stack *b);
 void set_len(t_stack **a, t_data *info);
 int 	getlessvalue(t_stack *b,int less);
-void	pushsort(t_stack **a, t_stack **b, int midb);
+void	pushsort(t_stack **a, t_stack **b);
 void	push_back(t_stack **a, t_stack **b);
 void sort_big(t_stack **a, t_stack **b, t_data *info);
 int		get_less_movs(t_stack *b);
@@ -96,6 +96,6 @@ int	ft_atoi(const char *str);
 char	*ft_strjoin(int size, char **strs, char *sep);
 void	amovs(t_stack **a, int minmax, int mida, int size_a);
 void	bmovs(t_stack **b, int less, int midb,int size_b);
-void	do_movs(t_stack **a, t_stack **b, int less, int size_b, int midb, int minmax);
+void	do_movs(t_stack **a, t_stack **b, int less, int minmax);
 
 #endif
