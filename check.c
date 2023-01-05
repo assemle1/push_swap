@@ -74,3 +74,18 @@ int issorted(t_data *info)
     }
     return (i);
 }
+
+void    ft_lstclear(t_stack **lst)
+{
+        t_stack  *plst;
+
+        if (!lst)
+                return ;
+        plst = *lst;
+        while (plst != NULL)
+        {
+                free(plst);
+                plst = plst->next;
+        }
+        *lst = NULL;
+}

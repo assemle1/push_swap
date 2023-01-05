@@ -42,31 +42,6 @@ void make_arr(t_data *info)
 	}
 }
 
-void sort_array(int *arr, t_data info )
-{
-    int i;
-    int j;
-    int tmp;
-
-    i = 0;
-   j = 0;
-    while (i < info.nbelem)
-    {
-        j = i + 1;
-        while (j < info.nbelem)
-        {
-            if (arr[j] < arr[i])
-            {
-                tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-            }
-            j++;
-        }
-        i++;
-    }
-
-}
 int	count(char *str[])
 {
 	int i;

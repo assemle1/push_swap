@@ -11,7 +11,19 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+char	*initialise(int ac, char **av,t_data *info)
+{
+	char *params;
 
+	params = ft_strjoin(ac,av," ");
+	info->args = ft_split(params, ' ');
+	info->nbelem = count(info->args);
+	info->arr = malloc(sizeof(int) * count(info->args));
+		if (!info->arr)
+			return (0);
+	make_arr(info);
+	return (params);
+}
 int	main(int ac, char *av[])
 {
 	char *params;
@@ -19,28 +31,23 @@ int	main(int ac, char *av[])
 	 t_stack *stack_b;
 	t_data	info;
 	
-	params = ft_strjoin(ac,av," ");
-	info.args = ft_split(params, ' ');
-	info.nbelem = count(info.args);
-	info.arr = malloc(sizeof(int) * count(info.args));
-		if (!info.arr)
-			return (0);
-	make_arr(&info);
+	params = initialise(ac,av,&info);
 	if (!check(params) || !check_double(&info))
 	{
 		ft_putstr_fd("Error\n",2);
 		return (0);
 	}
 	if (issorted(&info))
-		return (0);
+		return (ft_putstr_fd("input sorted , please try again!",1),0);
 	 stack_a = link_args(&info);
 	 stack_b = NULL;
 	 ft_index(stack_a);
 	 if (info.nbelem <= 5)
-		sort_small(&stack_a,&stack_b,info);
+		sort_small(&stack_a,&stack_b,&info);
 	else
 	 	sort_big(&stack_a,&stack_b,&info);
-	//  printf("sorted : %d\n",sorted(&stack_a));
-	  free(info.arr);
-	//  while (1);
+	free(info.arr);
+	freealloc(info.args,count(info.args));
+	free(params);
+	ft_lstclear(&stack_a);
 }	

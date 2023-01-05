@@ -77,19 +77,3 @@ t_stack	*ft_lstnew(int content)
 	new->next = NULL;
 	return (new);
 }
-
-void    ft_lstclear(t_stack **lst)
-{
-        t_stack  *plst;
-
-        if (!lst)
-                return ;
-        plst = *lst;
-        while (plst != NULL)
-        {
-                free(plst);
-				plst = NULL;
-                plst = plst->next;
-        }
-        *lst = NULL;
-}

@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:02:24 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 19:03:10 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:52:16 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,12 @@ void	sort_3(t_stack **a)
 		}	
 		}
 }
-
-void 	sort_small(t_stack **a, t_stack **b, t_data info)
+void	push_min(t_stack **a, t_stack **b, t_data *info)
 {
-	int j ;
 	int i;
 
-	i = 0;
-	j = 0;
-	if (info.nbelem == 2)
-	{
-		if(get_min_value(*a) != (*a)->content)
-			swap((*a),(*a)->next,'a');
-		return ;
-	}
-	while(j < info.nbelem - 3)
-	{
 		i  = get_min_value(*a);
-		if (i < info.nbelem / 2)
+		if (i < info->nbelem / 2)
 		{
 			while (i != (*a)->content)
 				rotate(a,'a');
@@ -63,6 +51,23 @@ void 	sort_small(t_stack **a, t_stack **b, t_data info)
 			while (i != (*a)->content)
 				reverse_rotate(a,'a');
 		push_b(b,a);
+}
+
+void 	sort_small(t_stack **a, t_stack **b, t_data *info)
+{
+	int j ;
+	int i;
+
+	i = 0;
+	j = 0;
+	if (info->nbelem == 2)
+	{
+		swap((*a),(*a)->next,'a');
+		return ;
+	}
+	while(j < info->nbelem - 3)
+	{
+		push_min(a,b,info);
 		j++;	
 	}
 	 sort_3(a);
@@ -70,15 +75,31 @@ void 	sort_small(t_stack **a, t_stack **b, t_data info)
 		push_a(a,b);
 }
 
-
+void 	lenght(t_data *info, int *j, int *len ,int *last)
+{
+	if (info->arr[*j] > *last)
+			{
+				*last = info->arr[*j];
+				(*len)++;
+				(*j)++;
+				if (*j  == info->nbelem)
+					*j = 0;
+			}
+			else
+			{
+			 (*j)++;
+			 if (*j  == info->nbelem)
+					*j = 0;
+			}
+}
 int	callen(int n, t_data *info)
 {
 	int len;
 	int i;
 	int last;
 	int j;
+
 	i = 0;
-	
 		len = 1;
 		last = n;
 		while (i < info->nbelem)
@@ -91,80 +112,6 @@ int	callen(int n, t_data *info)
 			if (j == info->nbelem)
 				j = 0;
 		while (info->arr[j] != n)
-		{
-			if (info->arr[j] > last)
-			{
-				last = info->arr[j];
-				len++;
-				j++;
-				if (j  == info->nbelem)
-					j = 0;
-			}
-			else
-			{
-			 j++;
-			 if (j  == info->nbelem)
-					j = 0;
-			}
-		}
+			lenght(info,&j,&len,&last);
 	return len;
-}
-int		get_max_len(t_stack *a)
-{
-	int max;
-	max = 1;
-	while (a)
-	{
-		if (a->len > max)
-			max = a->len;
-		a = a->next;
-	}
-	return (max);
-}
-void	set_pnp(t_stack *a)
-{
-	t_stack *tmp;
-	int max;
-	int save;
-	int last;
-	tmp = a;
-	save = 0;
-	max = get_max_len(tmp);
-
-	while (tmp)
-	{
-		if (tmp->len == max)
-		{
-			save = tmp->content;
-			tmp->pnp = 1;
-			if (tmp->next)
-				tmp = tmp->next;
-			else 
-				tmp = a;
-			break ;
-		}
-		tmp = tmp->next;
-	}
-
-	last = save;
-	while (tmp->content != save)
-	{
-		
-		 if (tmp->content > last)
-			{
-				last = tmp->content;
-				tmp->pnp = 1;
-				if (!tmp->next)
-					tmp = a;
-				else 
-					tmp = tmp->next;
-			}
-		else
-		{
-			if(!tmp->next)
-				tmp = a;
-			else	
-				tmp = tmp->next;
-		}
-	}
 }

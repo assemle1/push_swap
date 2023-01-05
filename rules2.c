@@ -59,8 +59,6 @@ void    reverse_rotate(t_stack  **a, char index)
         ft_putstr_fd("rra\n",1);
     else if (index == 'b')
         ft_putstr_fd("rrb\n",1);
-    else
-        return ;
 }
 
 void    rrr(t_stack **a, t_stack **b)

@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:03:20 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 20:56:42 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/05 18:51:50 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	set_hops(t_stack *a,t_stack *b)
 	int midb;
 	int mov;
 	int size;
+
 	size = ft_lstsize(b);
 	midb = (ft_lstsize(b) - 1) / 2;
 	while (b)
@@ -98,22 +99,4 @@ void set_len(t_stack **a, t_data *info)
 		(tmp)->len = callen((tmp)->content,info);
 		(tmp) = (tmp)->next;
 	}
-}
-int		get_less_movs(t_stack *b)
-{
-	int index;
-	int movs;
-	index = 0;
-	movs = b->movs;
-
-	while (b)
-	{
-		if (movs > b->movs)
-		{
-			movs = b->movs;
-			index = b->index;
-		}
-		b = b->next;
-	}
-	return index;
 }
