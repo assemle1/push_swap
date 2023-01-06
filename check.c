@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:40:51 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 15:32:30 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:15:02 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	check(char *av)
 	int	i;
 
 	i = 0;
+	if (av[i] == '-')
+	{
+		i++;
+		if (!ft_isdigit(av[i]))
+			return (0);
+	}
 	while (av[i])
 	{
 		if (av[i] == 32)
@@ -41,6 +47,8 @@ int	check_double(t_data *info)
 	int	j;
 
 	i = 0;
+	if (info->nbelem == 1)
+		return (0);
 	while (i < info->nbelem)
 	{
 		j = 0;
