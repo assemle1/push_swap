@@ -6,7 +6,7 @@
 #    By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/17 23:42:01 by astalha           #+#    #+#              #
-#    Updated: 2023/01/05 21:21:03 by astalha          ###   ########.fr        #
+#    Updated: 2023/01/06 17:43:48 by astalha          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ SRCS			=	actions.c check.c ft_split.c ft_strjoin.c libft1.c libft2.c linkedlist.
 OBJS			= $(SRCS:.c=.o)
 CC				= gcc
 RM				= rm -f
-FLAGS			= -Wall -Wextra -Werror -g
+FLAGS			= -Wall -Wextra -Werror
 NAME			= push_swap
 
 .PHONY: all clean bonus fclean re
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
 
 all: $(NAME) 
