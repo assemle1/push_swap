@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 10:30:13 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 17:15:16 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/06 17:41:56 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*initialise(int ac, char **av, t_data *info)
 	info->nbelem = count(info->args);
 	info->arr = malloc(sizeof(int) * count(info->args));
 	if (!info->arr)
-		return (0);
+		return (NULL);
 	make_arr(info);
 	return (params);
 }
@@ -34,7 +34,7 @@ int	main(int ac, char *av[])
 	t_data	info;
 
 	params = initialise(ac, av, &info);
-	if (!check(params) || !check_double(&info))
+	if (!check(params) || !check_double(&info) || !params)
 	{
 		ft_putstr_fd("Error\n", 2);
 		return (0);
