@@ -6,13 +6,13 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:04:00 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/05 21:29:37 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/06 16:23:10 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int 	getlessvalue(t_stack *b,int less)
+int	getlessvalue(t_stack *b, int less)
 {
 	while (b)
 	{
@@ -20,51 +20,51 @@ int 	getlessvalue(t_stack *b,int less)
 			return (b->content);
 		b = b->next;
 	}
-	return 0;
+	return (0);
 }
 
 void	pushsort(t_stack **a, t_stack **b)
 {
-	int  less;
+	int	less;
 
 	less = get_less_movs(*b);
-	do_movs(a,b,less,minmax(*a,getlessvalue(*b,less)));
-	push_a(a,b);
+	do_movs(a, b, less, minmax(*a, getlessvalue(*b, less)));
+	push_a(a, b);
 }
 
 void	push_back(t_stack **a, t_stack **b)
 {
 	while (*b)
 	{
-	ft_index(*a);
-	ft_index(*b);
-	set_hops(*a,*b);
-	pushsort(a,b);
+		ft_index(*a);
+		ft_index(*b);
+		set_hops(*a, *b);
+		pushsort(a, b);
 	}
 }
 
-void sort_big(t_stack **a, t_stack **b, t_data *info)
+void	sort_big(t_stack **a, t_stack **b, t_data *info)
 {
-	int max;
-	int mida;
+	int	max;
+	int	mida;
 
-	set_len(a,info);
+	set_len(a, info);
 	set_pnp(*a);
 	max = get_max_len(*a);
 	while (ft_lstsize(*a) > max)
 	{
 		if ((*a)->pnp == 0)
-			push_b(b,a);
+			push_b(b, a);
 		else
-			reverse_rotate(a,'a');
+			reverse_rotate(a, 'a');
 	}
-	push_back(a,b);
+	push_back(a, b);
 	ft_index(*a);
 	mida = ((ft_lstsize(*a) - 1) / 2);
 	if (mida >= get_min_index(*a))
 		while ((*a)->content != get_min_value(*a))
-			rotate(a,'a');
+			rotate(a, 'a');
 	else
-			while ((*a)->content != get_min_value(*a))
-			reverse_rotate(a,'a');
+		while ((*a)->content != get_min_value(*a))
+			reverse_rotate(a, 'a');
 }

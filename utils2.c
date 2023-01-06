@@ -6,18 +6,18 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:01:06 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 17:01:37 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/06 16:01:13 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		get_min_value(t_stack *a)
+int	get_min_value(t_stack *a)
 {
-	t_stack *tmp;
-	int min;
-	min = a->content;
+	t_stack	*tmp;
+	int		min;
 
+	min = a->content;
 	tmp = a;
 	while (tmp)
 	{
@@ -25,15 +25,16 @@ int		get_min_value(t_stack *a)
 			min = tmp->content;
 		tmp = tmp->next;
 	}
-	return min;
+	return (min);
 }
-int		get_min_index(t_stack *a)
-{
-	t_stack *tmp;
-	int min;
-	int index;
-	min = a->content;
 
+int	get_min_index(t_stack *a)
+{
+	t_stack	*tmp;
+	int		min;
+	int		index;
+
+	min = a->content;
 	tmp = a;
 	while (tmp)
 	{
@@ -44,14 +45,16 @@ int		get_min_index(t_stack *a)
 		}
 		tmp = tmp->next;
 	}
-	return index;
+	return (index);
 }
-int		get_max(t_stack *a)
+
+int	get_max(t_stack *a)
 {
-	t_stack *tmp;
-	int max;
+	t_stack	*tmp;
+	int		max;
+	int		index;
+
 	max = 0;
-	int index;
 	tmp = a;
 	while (tmp)
 	{
@@ -62,18 +65,20 @@ int		get_max(t_stack *a)
 		}
 		tmp = tmp->next;
 	}
-	return index;
+	return (index);
 }
-void ft_index(t_stack *a)
+
+void	ft_index(t_stack *a)
 {
-	t_stack *tmp;
-	int i;
+	t_stack	*tmp;
+	int		i;
+
 	i = 0;
 	tmp = a;
 	while (a)
 	{
-			a->index= i++;
-			a = a->next;
+		a->index = i++;
+		a = a->next;
 	}
 	a = tmp;
 }

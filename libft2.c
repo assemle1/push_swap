@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:38:12 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/01 16:40:21 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/06 16:46:37 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 int	ft_atoi(const char *str)
 {
-	size_t	i;
-	size_t	n;
-	size_t	signe;
+	long	i;
+	long	n;
+	long	signe;
 
 	i = 0;
 	n = 0;
@@ -59,9 +59,7 @@ int	ft_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-		{
 			signe *= -1;
-		}
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
@@ -69,5 +67,7 @@ int	ft_atoi(const char *str)
 		n = n * 10 + str[i] - 48;
 		i++;
 	}
+	if (n > 2147483647 || n < -2147483648)
+		exit(0);
 	return ((int)n * signe);
 }
