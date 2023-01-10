@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:38:12 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 17:30:02 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/10 23:04:25 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-static void	errorexit(void)
+void	errorexit(void)
 {
-	ft_putstr_fd("You depassed the int MAX/MIN!", 2);
+	ft_putstr_fd("Error\n", 2);
 	exit(0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, t_data *info, char *params)
 {
 	long	i;
 	long	n;
@@ -74,6 +74,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (n >= 2147483647 || n <= -2147483648)
-		errorexit();
+		return (to_free(info, params, NULL), errorexit(), 0);
 	return ((int)n * signe);
 }

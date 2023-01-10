@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:02:24 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 16:12:47 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/10 18:20:33 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,17 @@ void	sort_3(t_stack **a)
 void	push_min(t_stack **a, t_stack **b, t_data *info)
 {
 	int	i;
+	int	min;
 
-	i = get_min_value(*a);
+	i = get_min_index(*a);
+	min = get_min_value(*a);
 	if (i < info->nbelem / 2)
 	{
-		while (i != (*a)->content)
+		while (min != (*a)->content)
 			rotate(a, 'a');
 	}
 	else
-		while (i != (*a)->content)
+		while (min != (*a)->content)
 			reverse_rotate(a, 'a');
 	push_b(b, a);
 }
@@ -64,7 +66,8 @@ void	sort_small(t_stack **a, t_stack **b, t_data *info)
 	j = 0;
 	if (info->nbelem == 2)
 	{
-		swap((*a), (*a)->next, 'a');
+		if ((*a)->content > (*a)->next->content)
+			swap((*a), (*a)->next, 'a');
 		return ;
 	}
 	while (j < info->nbelem - 3)

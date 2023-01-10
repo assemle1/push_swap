@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 11:28:55 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 16:45:05 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/10 23:04:45 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char		*ft_strdup(const char *src);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlen(const char	*str);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-int			ft_atoi(const char *str);
+int			ft_atoi(const char *str, t_data *info, char *params);
 char		*ft_strjoin(int size, char **strs, char *sep);
 char		**ft_split(char const *s, char c);
 //movs and rules 
@@ -67,12 +67,14 @@ int			check(char *av);
 int			check_double(t_data *info);
 int			issorted(t_data *info);
 t_stack		*link_args(t_data	*info);
-void		make_arr(t_data *info);
+void		make_arr(t_data *info, char *params);
 int			sorted(t_stack **a);
 int			count(char *str[]);
+void		errorexit(void);
 //free 
 void		ft_lstclear(t_stack **lst);
 void		freealloc(char **ptr, int index);
+void		to_free(t_data *info, char *params, t_stack **stack_a);
 //sorting & utils
 void		sort_3(t_stack **a);
 int			get_min_value(t_stack *a);

@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 16:55:35 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/06 15:56:56 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/10 23:02:29 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ t_stack	*link_args(t_data *info)
 	return (head);
 }
 
-void	make_arr(t_data *info)
+void	make_arr(t_data *info, char *params)
 {
 	int	i;
 
 	i = 0;
 	while (info->args[i])
 	{
-		info->arr[i] = ft_atoi(info->args[i]);
+		info->arr[i] = ft_atoi(info->args[i], info, params);
 		i++;
 	}
 }
