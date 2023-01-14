@@ -6,7 +6,7 @@
 /*   By: astalha <astalha@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/01 17:02:24 by astalha           #+#    #+#             */
-/*   Updated: 2023/01/10 18:20:33 by astalha          ###   ########.fr       */
+/*   Updated: 2023/01/14 16:04:25 by astalha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	sort_3(t_stack **a)
 
 	while (!sorted(a))
 	{
+		ft_index(*a);
 		max = get_max(*a);
 		if ((*a)->next->next->content > (*a)->next->content
 			&& (*a)->content < (*a)->next->content)
